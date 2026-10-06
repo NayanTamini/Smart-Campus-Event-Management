@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Payments</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">EventReg</div>
+
+    <div class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/events">Events</a>
+        <a href="/participants">Participants</a>
+        <a href="/registrations">Registrations</a>
+        <a href="/payments">Payments</a>
+        <a href="/attendance">Attendance</a>
+        <a href="#">Analytics</a>
+    </div>
+
+</nav>
+
+<section class="dashboard-hero">
+
+    <h1>Payment Management</h1>
+
+    <p>
+        Track registration payments and revenue.
+    </p>
+
+</section>
+
+<section class="dashboard-container">
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h3>Total Revenue</h3>
+            <p>₹{{ total_revenue }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Payments</h3>
+            <p>{{ payments|length }}</p>
+        </div>
+
+    </div>
+
+    <div class="dashboard-panel">
+
+        <h2>💳 Payment Records</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Payment ID</th>
+                        <th>Registration ID</th>
+                        <th>Participant</th>
+                        <th>Event</th>
+                        <th>Amount</th>
+                        <th>Payment Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for payment in payments %}
+
+                    <tr>
+
+                        <td>
+                            {{ payment.Payment_ID }}
+                        </td>
+
+                        <td>
+                            {{ payment.Registration_ID }}
+                        </td>
+
+                        <td>
+                            <strong>
+                                {{ payment.Participant_Name }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ payment.Event_Name }}
+                        </td>
+
+                        <td>
+                            ₹{{ payment.Amount }}
+                        </td>
+
+                        <td>
+                            {{ payment.Payment_Date }}
+                        </td>
+
+                        <td>
+
+                            {% if payment.Payment_Status == "Paid" %}
+
+                                <span class="status available">
+                                    Paid
+                                </span>
+
+                            {% else %}
+
+                                <span class="status filling">
+                                    Pending
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p>
+        Smart Campus Event Management & Registration System
+        | DBMS Mini Project
+    </p>
+
+</footer>
+
+</body>
+
+</html>

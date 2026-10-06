@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">EventReg</div>
+
+    <div class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/events">Events</a>
+        <a href="/participants">Participants</a>
+        <a href="/registrations">Registrations</a>
+        <a href="/payments">Payments</a>
+        <a href="/attendance">Attendance</a>
+        <a href="/analytics">Analytics</a>
+    </div>
+
+</nav>
+
+<section class="dashboard-hero">
+
+    <h1>Event Analytics</h1>
+
+    <p>
+        Analyze registrations, participation and revenue.
+    </p>
+
+</section>
+
+<section class="dashboard-container">
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <h3>Total Registrations</h3>
+            <p>{{ total_registrations }}</p>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Revenue</h3>
+            <p>₹{{ total_revenue }}</p>
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-panel">
+
+        <h2>📊 Event Performance</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Event</th>
+                        <th>Capacity</th>
+                        <th>Registrations</th>
+                        <th>Revenue</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for event in event_analytics %}
+
+                    <tr>
+
+                        <td>
+                            <strong>{{ event.Event_Name }}</strong>
+                        </td>
+
+                        <td>
+                            {{ event.Capacity }}
+                        </td>
+
+                        <td>
+                            {{ event.registrations }}
+                        </td>
+
+                        <td>
+                            ₹{{ event.revenue }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-panel">
+
+        <h2>👥 Participant Activity</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Participant</th>
+                        <th>Total Registrations</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for participant in participant_analytics %}
+
+                    <tr>
+
+                        <td>
+                            <strong>
+                                {{ participant.Participant_Name }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ participant.registrations }}
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p>
+        Smart Campus Event Management & Registration System
+        | DBMS Mini Project
+    </p>
+
+</footer>
+
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Campus Event Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+   <div class="nav-links">
+    <a href="/">Dashboard</a>
+    <a href="/events">Events</a>
+    <a href="/participants">Participants</a>
+    <a href="/registrations">Registrations</a>
+    <a href="/payments">Payments</a>
+    <a href="/attendance">Attendance</a>
+    <a href="/analytics">Analytics</a>
+</div>     </div>
+</nav>
+
+<section class="dashboard-hero">
+    <div>
+        <h1>Smart Campus Event Management</h1>
+        <p>Manage events, registrations, payments and campus activities efficiently.</p>
+    </div>
+</section>
+
+<section class="dashboard-container">
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+            <span>Total Events</span>
+            <h2>{{ total_events }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <span>Total Participants</span>
+            <h2>{{ total_participants }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <span>Total Registrations</span>
+            <h2>{{ total_registrations }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <span>Total Revenue</span>
+            <h2>₹{{ total_revenue }}</h2>
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="dashboard-panel">
+            <h2>🔥 Most Popular Event</h2>
+
+            {% if popular_event %}
+                <h3>{{ popular_event.Event_Name }}</h3>
+                <p>{{ popular_event.registrations }} registrations</p>
+            {% else %}
+                <p>No registrations yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-panel">
+            <h2>📅 Upcoming Events</h2>
+
+            {% for event in upcoming_events %}
+                <div class="upcoming-event">
+                    <strong>{{ event.Event_Name }}</strong>
+                    <span>{{ event.Event_Date }}</span>
+                    <small>{{ event.Venue }}</small>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div class="dashboard-panel">
+
+        <h2>🪑 Smart Seat Availability</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Capacity</th>
+                        <th>Registered</th>
+                        <th>Available</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for event in events %}
+
+                    <tr>
+                        <td>{{ event.Event_Name }}</td>
+                        <td>{{ event.Capacity }}</td>
+                        <td>{{ event.registered }}</td>
+                        <td>{{ event.available }}</td>
+
+                        <td>
+                            {% if event.status == "Full" %}
+                                <span class="status full">Full</span>
+                            {% elif event.status == "Almost Full" %}
+                                <span class="status almost">Almost Full</span>
+                            {% elif event.status == "Filling Fast" %}
+                                <span class="status filling">Filling Fast</span>
+                            {% else %}
+                                <span class="status available">Available</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>Smart Campus Event Management & Registration System | DBMS Mini Project</p>
+</footer>
+
+</body>
+</html>

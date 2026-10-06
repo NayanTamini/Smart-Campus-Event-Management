@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Participants</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">EventReg</div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/participants">Participants</a>
+        <a href="#">Events</a>
+        <a href="#">Registrations</a>
+        <a href="#">Payments</a>
+    </div>
+</nav>
+
+<section class="container">
+
+    <div class="section-heading">
+        <h2>Participants</h2>
+        <p>Manage registered participants</p>
+    </div>
+
+    <div class="event-card">
+
+        <h3>Add Participant</h3>
+
+        <form action="/participants/add" method="POST">
+
+            <input type="text"
+                   name="name"
+                   placeholder="Participant Name"
+                   required>
+
+            <input type="email"
+                   name="email"
+                   placeholder="Email"
+                   required>
+
+            <input type="text"
+                   name="phone"
+                   placeholder="Phone"
+                   required>
+
+            <input type="text"
+                   name="department"
+                   placeholder="Department"
+                   required>
+
+            <button type="submit">Add Participant</button>
+
+        </form>
+
+    </div>
+
+    <br>
+
+    <div class="event-card">
+
+        <h3>Participant List</h3>
+
+        <table width="100%" cellpadding="12">
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>Action</th>
+            </tr>
+
+            {% for participant in participants %}
+
+            <tr>
+                <td>{{ participant.Participant_ID }}</td>
+                <td>{{ participant.Participant_Name }}</td>
+                <td>{{ participant.Email }}</td>
+                <td>{{ participant.Phone }}</td>
+                <td>{{ participant.Department }}</td>
+
+               <td>
+    <a href="/participants/edit/{{ participant.Participant_ID }}">
+        Edit
+    </a>
+
+    |
+
+    <a href="/participants/delete/{{ participant.Participant_ID }}"
+       onclick="return confirm('Delete this participant?')">
+        Delete
+    </a>
+</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+</section>
+
+</body>
+</html>

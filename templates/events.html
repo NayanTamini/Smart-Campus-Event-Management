@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Events</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">EventReg</div>
+
+    <div class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/events">Events</a>
+        <a href="/participants">Participants</a>
+        <a href="#">Registrations</a>
+        <a href="#">Payments</a>
+        <a href="#">Attendance</a>
+        <a href="#">Feedback</a>
+        <a href="#">Analytics</a>
+    </div>
+</nav>
+
+<section class="dashboard-hero">
+    <h1>Smart Event Management</h1>
+    <p>Monitor events, registrations and seat availability.</p>
+</section>
+
+<section class="dashboard-container">
+
+    <div class="dashboard-panel">
+
+        <h2>Add New Event</h2>
+
+        <form action="/events/add" method="POST" class="event-form">
+
+            <input type="text" name="name" placeholder="Event Name" required>
+
+            <input type="date" name="date" required>
+
+            <input type="text" name="venue" placeholder="Venue" required>
+
+            <input type="number" name="capacity" placeholder="Capacity" min="1" required>
+
+            <input type="number" name="fee" placeholder="Registration Fee" min="0" step="0.01" required>
+
+            <button type="submit">Add Event</button>
+
+        </form>
+
+    </div>
+
+    <div class="dashboard-panel">
+
+        <h2>📊 Event Overview</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Venue</th>
+                        <th>Capacity</th>
+                        <th>Registered</th>
+                        <th>Available</th>
+                        <th>Occupancy</th>
+                        <th>Status</th>
+                        <th>Fee</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for event in events %}
+
+                    <tr>
+
+                        <td><strong>{{ event.Event_Name }}</strong></td>
+
+                        <td>{{ event.Event_Date }}</td>
+
+                        <td>{{ event.Venue }}</td>
+
+                        <td>{{ event.Capacity }}</td>
+
+                        <td>{{ event.registered }}</td>
+
+                        <td>{{ event.available }}</td>
+
+                        <td>{{ event.occupancy }}%</td>
+
+                        <td>
+
+                            {% if event.status == "Full" %}
+                                <span class="status full">Full</span>
+
+                            {% elif event.status == "Almost Full" %}
+                                <span class="status almost">Almost Full</span>
+
+                            {% elif event.status == "Filling Fast" %}
+                                <span class="status filling">Filling Fast</span>
+
+                            {% else %}
+                                <span class="status available">Available</span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>₹{{ event.Registration_Fee }}</td>
+
+                        <td>
+                            <a href="/events/edit/{{ event.Event_ID }}" class="action-edit">Edit</a>
+                            <a href="/events/delete/{{ event.Event_ID }}" class="action-delete">Delete</a>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+    <p>Smart Campus Event Management & Registration System | DBMS Mini Project</p>
+</footer>
+
+</body>
+</html>

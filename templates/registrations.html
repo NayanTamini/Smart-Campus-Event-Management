@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registrations</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">EventReg</div>
+
+    <div class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/events">Events</a>
+        <a href="/participants">Participants</a>
+        <a href="/registrations">Registrations</a>
+        <a href="#">Payments</a>
+        <a href="/attendance">Attendance</a>
+        <a href="#">Analytics</a>
+    </div>
+
+</nav>
+
+<section class="dashboard-hero">
+
+    <h1>Registration Management</h1>
+
+    <p>
+        View participant registrations, payments and attendance status.
+    </p>
+
+</section>
+
+<section class="dashboard-container">
+
+    <div class="dashboard-panel">
+
+        <h2>📋 All Registrations</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Participant</th>
+                        <th>Event</th>
+                        <th>Event Date</th>
+                        <th>Registered On</th>
+                        <th>Status</th>
+                        <th>Payment</th>
+                        <th>Attendance</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for registration in registrations %}
+
+                    <tr>
+
+                        <td>
+                            {{ registration.Registration_ID }}
+                        </td>
+
+                        <td>
+                            <strong>
+                                {{ registration.Participant_Name }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ registration.Event_Name }}
+                        </td>
+
+                        <td>
+                            {{ registration.Event_Date }}
+                        </td>
+
+                        <td>
+                            {{ registration.Registration_Date }}
+                        </td>
+
+                        <td>
+                            <span class="status available">
+                                {{ registration.Status }}
+                            </span>
+                        </td>
+
+                        <td>
+
+                            {% if registration.Payment_Status == "Paid" %}
+
+                                <span class="status available">
+                                    Paid
+                                </span>
+
+                            {% elif registration.Payment_Status == "Pending" %}
+
+                                <span class="status filling">
+                                    Pending
+                                </span>
+
+                            {% else %}
+
+                                <span class="status full">
+                                    Not Paid
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if registration.Attendance_Status == "Present" %}
+
+                                <span class="status available">
+                                    Present
+                                </span>
+
+                            {% elif registration.Attendance_Status == "Absent" %}
+
+                                <span class="status full">
+                                    Absent
+                                </span>
+
+                            {% else %}
+
+                                <span class="status filling">
+                                    Not Marked
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p>
+        Smart Campus Event Management & Registration System
+        | DBMS Mini Project
+    </p>
+
+</footer>
+
+</body>
+
+</html>

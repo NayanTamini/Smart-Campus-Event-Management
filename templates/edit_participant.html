@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Participant</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">EventReg</div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/participants">Participants</a>
+    </div>
+</nav>
+
+<section class="container">
+
+    <div class="section-heading">
+        <h2>Edit Participant</h2>
+    </div>
+
+    <div class="event-card">
+
+        <form action="/participants/update/{{ participant.Participant_ID }}"
+              method="POST">
+
+            <input type="text"
+                   name="name"
+                   value="{{ participant.Participant_Name }}"
+                   required>
+
+            <input type="email"
+                   name="email"
+                   value="{{ participant.Email }}"
+                   required>
+
+            <input type="text"
+                   name="phone"
+                   value="{{ participant.Phone }}"
+                   required>
+
+            <input type="text"
+                   name="department"
+                   value="{{ participant.Department }}"
+                   required>
+
+            <button type="submit">Update Participant</button>
+
+        </form>
+
+    </div>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Attendance Management</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">EventReg</div>
+
+    <div class="nav-links">
+        <a href="/">Dashboard</a>
+        <a href="/events">Events</a>
+        <a href="/participants">Participants</a>
+        <a href="#">Registrations</a>
+        <a href="#">Payments</a>
+        <a href="/attendance">Attendance</a>
+        <a href="#">Feedback</a>
+        <a href="#">Analytics</a>
+    </div>
+
+</nav>
+
+<section class="dashboard-hero">
+
+    <h1>Attendance Management</h1>
+
+    <p>
+        Track participant attendance for registered campus events.
+    </p>
+
+</section>
+
+<section class="dashboard-container">
+
+    <div class="dashboard-panel">
+
+        <h2>📋 Attendance Records</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Registration ID</th>
+                        <th>Participant</th>
+                        <th>Event</th>
+                        <th>Event Date</th>
+                        <th>Status</th>
+                        <th>Check-In Time</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for record in records %}
+
+                    <tr>
+
+                        <td>
+                            {{ record.Registration_ID }}
+                        </td>
+
+                        <td>
+                            <strong>
+                                {{ record.Participant_Name }}
+                            </strong>
+                        </td>
+
+                        <td>
+                            {{ record.Event_Name }}
+                        </td>
+
+                        <td>
+                            {{ record.Event_Date }}
+                        </td>
+
+                        <td>
+
+                            {% if record.Attendance_Status == "Present" %}
+
+                                <span class="status available">
+                                    Present
+                                </span>
+
+                            {% else %}
+
+                                <span class="status full">
+                                    Absent
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+                            {% if record.Check_In_Time %}
+                                {{ record.Check_In_Time }}
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+
+                        <td>
+
+                            <form
+                                action="/attendance/update/{{ record.Registration_ID }}"
+                                method="POST"
+                            >
+
+                                <select name="status">
+
+                                    <option value="Present"
+                                        {% if record.Attendance_Status == "Present" %}
+                                        selected
+                                        {% endif %}>
+                                        Present
+                                    </option>
+
+                                    <option value="Absent"
+                                        {% if record.Attendance_Status == "Absent" %}
+                                        selected
+                                        {% endif %}>
+                                        Absent
+                                    </option>
+
+                                </select>
+
+                                <button type="submit">
+                                    Update
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <p>
+        Smart Campus Event Management & Registration System
+        | DBMS Mini Project
+    </p>
+
+</footer>
+
+</body>
+
+</html>

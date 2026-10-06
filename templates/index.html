@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">EventReg</div>
+
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/participants">Participants</a>
+        <a href="#">Events</a>
+        <a href="#">Registrations</a>
+        <a href="#">Payments</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <h1>Event Registration System</h1>
+        <p>Manage events, participants, registrations and payments in one place.</p>
+    </div>
+</section>
+
+<section class="container">
+
+    <div class="section-heading">
+        <h2>Available Events</h2>
+        <p>Explore upcoming college events</p>
+    </div>
+
+    <div class="event-grid">
+
+        {% for event in events %}
+
+        <div class="event-card">
+
+            <div class="event-header">
+                <span>EVENT</span>
+                <h3>{{ event.Event_Name }}</h3>
+            </div>
+
+            <div class="event-info">
+                <p>📅 <strong>Date:</strong> {{ event.Event_Date }}</p>
+                <p>📍 <strong>Venue:</strong> {{ event.Venue }}</p>
+                <p>👥 <strong>Capacity:</strong> {{ event.Capacity }}</p>
+                <p>💰 <strong>Fee:</strong> ₹{{ event.Registration_Fee }}</p>
+            </div>
+
+            <button>Register Now</button>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<footer>
+    <p>Event Registration System | DBMS Mini Project</p>
+</footer>
+
+</body>
+</html>
